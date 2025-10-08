@@ -1,3 +1,3 @@
 print("------------------------")
-print("Hola Buenass")
+print("Aca empezamos a escribir el codigo")
 print("------------------------")
