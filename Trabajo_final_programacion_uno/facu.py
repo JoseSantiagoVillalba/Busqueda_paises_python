@@ -1,6 +1,8 @@
 import requests
+from colorama import Fore, Style, init
+init(autoreset=True)
 
-pais = input("Ingresá el nombre de un país: ")
+pais = input(Fore.RED + "Ingresá el nombre de un país: ")
 
 # Llamada a la API
 url = f"https://restcountries.com/v3.1/name/{pais}?fullText=true&lang=es"
