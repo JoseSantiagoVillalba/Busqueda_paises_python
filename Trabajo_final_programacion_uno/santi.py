@@ -3,7 +3,7 @@ import streamlit as st
 
 # 🎨 Configuración general de la página
 st.set_page_config(
-    page_title="Buscador de Países 🌍",
+    page_title="Buscador de Países",
     page_icon="🌎",
     layout="centered",
 )
