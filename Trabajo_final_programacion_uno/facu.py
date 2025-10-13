@@ -1,28 +1,63 @@
 import requests
-from colorama import Fore, Style, init
-init(autoreset=True)
 
-pais = input(Fore.RED + "Ingresá el nombre de un país: ")
+def buscar_capital(pais):
+    if isinstance(datos, list) and len(datos) > 0:
+        pais_info = datos[0]
+        capital = pais_info.get("capital", ["No disponible"])[0]
+        print(f"La capital de {pais} es: {capital}")
+    else:
+        print("No se pudo obtener información del país.")
 
-# Llamada a la API
+def buscar_poblacion(pais):
+    if isinstance(datos, list) and len(datos) > 0:
+        pais_info = datos[0]
+        poblacion = pais_info.get("population", "No disponible")
+        if isinstance(poblacion, int):
+            print(f"La población de {pais} es: {poblacion:,}")
+        else:
+            print(f"La población de {pais} es: {poblacion}")
+    else:
+        print("No se pudo obtener información del país.")
+
+def territorio_pais(pais):
+    if isinstance(datos, list) and len(datos) > 0:
+        pais_info = datos[0]
+        area = pais_info.get("area", "No disponible")
+        print(f"El territorio de {pais} es: {area} km²")
+    else:
+        print("No se pudo obtener información del país.")
+
+def opciones(pais):
+    print(f'''¿Qué quiere saber de {pais}?:
+        1 - Capital
+        2 - Población
+        3 - Territorio
+    ''')
+    op = input("Ingrese una opción: ")
+
+    if isinstance(datos, list) and len(datos) > 0:
+        if op == "1":    
+            buscar_capital(pais)
+        elif op == "2":
+            buscar_poblacion(pais)
+        elif op == "3":
+            territorio_pais(pais)
+        else:
+            print("Opción no válida.")
+    else:
+        print("❌ No se encontró el país en la API.")
+
+pais = input("Ingrese el nombre del país: ")
+
 url = f"https://restcountries.com/v3.1/name/{pais}?fullText=true&lang=es"
-response = requests.get(url)
+respuesta = requests.get(url)
 
-if response.status_code == 200:
-    data = response.json()[0]  # Tomamos el primer resultado
-    nombre = data["name"]["common"]
-    capital = data.get("capital", ["Sin capital"])[0]
-    region = data.get("region", "Desconocida")
-    poblacion = data.get("population", "No disponible")
-    moneda = list(data["currencies"].keys())[0]
-    bandera = data["flags"]["png"]
-
-    print(f"\n📍 País: {nombre}")
-    print(f"🏙️ Capital: {capital}")
-    print(f"🌎 Región: {region}")
-    print(f"👥 Población: {poblacion}")
-    print(f"💰 Moneda: {moneda}")
-    print(f"🏁 Bandera: {bandera}")
-
+if respuesta.status_code == 200:
+    datos = respuesta.json()
 else:
-    print("❌ No se encontró el país o hubo un error en la búsqueda.")
+    print("Error al conectar con la API.")
+    datos = []
+
+opciones(pais)
+
+
