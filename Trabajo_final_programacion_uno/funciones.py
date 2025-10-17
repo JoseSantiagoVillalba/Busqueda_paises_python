@@ -9,8 +9,8 @@ df = pd.read_csv("paises.csv")
 def menu():
     print("""     Busqueda Paises     
         Marque la opcion 1 para buscar un pais por nombre: 
-        Marque la opcion 2 para buscar un pais por continente: 
-        Marque la opcion 3 para buscar un pais por rango de poblacion: 
+        Marque la opcion 2 para buscar un pais por rango de poblacion: 
+        Marque la opcion 3 para buscar un pais por continente: 
         Marque la opcion 4 para buscar un pais por rango de superficie: 
         """)
 
@@ -57,65 +57,69 @@ def ordenar_por_nombre_ascendente(df_filtrado, ascendente=True):
     return df_filtrado.sort_values(by="Nombre", ascending=ascendente)
 
 
+def ordenar_por_poblacion_ascendente(df_filtrado, ascendente=True):
+    return df_filtrado.sort_values(by="Población (millones)", ascending=ascendente)
 
+
+def ordenar_por_superficie_ascendente(df_filtrado, ascendente=True):
+    return df_filtrado.sort_values(by="Superficie (km²)", ascending=ascendente)
 
 
 # Esta funcion esta buscando que tipo de opcion hay. Y si coincide con la 1, 2, 3 o 4
-# llama a las funciones pertinentes. 
+# llama a las funciones pertinentes.
+# 
+
 def opciones(opcion):
     try:
+        bandera = True
+        while bandera:
             if opcion == "1":
-                bandera = True
-                while bandera == True:
-                    pais = input("Ingrese un nombre o letras a buscar: ")
-                    resultado = busqueda_paises(pais)
-                    print(resultado)
-                    ordenar = input("Si desea ordenar de manera ascendente indique Y: ")
-                    # aca me estoy fijando si se pone y y si esto es un dataframe ya que si no 
-                    # va a aparecer como que se quiere ordenar el mensaje de error y eso genera
-                    # lios
-                    if ordenar.lower() == "y" and isinstance(resultado, pd.DataFrame):
-                        resultado_ordenado = ordenar_por_nombre_ascendente(resultado)
-                        print("\nResultados ordenados:")
-                        print(resultado_ordenado)
-                    salir = input("Si desea volver al menu indique X")
-                    if salir.lower() == "x":
-                        bandera = False
-                    
-            if opcion == "2":
-                bandera = True
-                while bandera == True:
-                    min_p = float(input("Ingrese población mínima (millones): "))
-                    max_p = float(input("Ingrese población máxima (millones): "))
-                    resultado = busqueda_poblacion(min_p, max_p)
-                    print(resultado)
-                    salir = input("Si desea volver al menu indique X")
-                    if salir.lower() == "x":
-                        bandera = False
-            if opcion == "3":
-                bandera = True
-                while bandera == True:
-                    continente = input("Ingrese un continente a buscar: ")
-                    resultado = busqueda_continente(continente)
-                    print(resultado)
-                    salir = input("Si desea volver al menu indique X")
-                    if salir.lower() == "x":
-                        bandera = False
-            if opcion == "4":
-                bandera = True
-                while bandera == True:
-                    min_s = float(input("Ingrese superficie mínima (km²): "))
-                    max_s = float(input("Ingrese superficie máxima (km²): "))
-                    resultado = busqueda_superficie(min_s, max_s)
-                    print(resultado)
-                    salir = input("Si desea volver al menu indique X")
-                    if salir.lower() == "x":
-                        bandera = False
-    except:
-        pass
-    finally:
-        pass
+                pais = input("Ingrese un nombre o letras a buscar: ")
+                resultado = busqueda_paises(pais)
 
+            elif opcion == "2":
+                min_p:float = float(input("Ingrese población mínima (millones): "))
+                max_p:float = float(input("Ingrese población máxima (millones): "))
+                resultado = busqueda_poblacion(min_p, max_p)
 
+            elif opcion == "3":
+                continente = input("Ingrese un continente a buscar: ")
+                resultado = busqueda_continente(continente)
 
+            elif opcion == "4":
+                min_s:float = float(input("Ingrese superficie mínima (km²): "))
+                max_s:float = float(input("Ingrese superficie máxima (km²): "))
+                resultado = busqueda_superficie(min_s, max_s)
 
+            else:
+                print("Opción inválida")
+                break
+
+            print("\nResultados encontrados:")
+            print(resultado)
+
+            ordenar = input("""
+Si desea ordenar por nombre (N), 
+por población (P), 
+por superficie (S), 
+o volver al menú (X): """)
+
+            if ordenar.lower() == "n" and isinstance(resultado, pd.DataFrame):
+                print(ordenar_por_nombre_ascendente(resultado))
+            elif ordenar.lower() == "p" and isinstance(resultado, pd.DataFrame):
+                print(ordenar_por_poblacion_ascendente(resultado))
+            elif ordenar.lower() == "s" and isinstance(resultado, pd.DataFrame):
+                print(ordenar_por_superficie_ascendente(resultado))
+            elif ordenar.lower() == "x":
+                bandera = False
+
+    except ValueError:
+        print("Error: ingresaste un valor numérico inválido. Por favor intenta de nuevo.")
+    except KeyError as e:
+        print(f"Error: la columna {e} no existe en los datos.")
+    except TypeError as e:
+        print(f"Error de tipo: {e}. Asegurate de que los datos sean correctos.")
+    except KeyboardInterrupt:
+        print("\nInterrupción por parte del usuario. Saliendo...")
+    except Exception as e:
+        print(f"Ocurrió un error inesperado: {e}")
