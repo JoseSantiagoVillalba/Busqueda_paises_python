@@ -114,13 +114,6 @@ def estadisticas_poblacion(datos=None):
 
 
 
-
-
-
-
-
-
-
 #Estas funciones sirven para ordenar segun nombre, poblacion y superficie. 
 
 def ordenar_por_nombre_ascendente(nombre_filtrado, ascendente=True):
@@ -204,7 +197,6 @@ o volver al menú (X): """)
                     print(estadisticas_poblacion(resultado))
                     print(estadisticas_superficie(resultado))
                     print(cantidad_paises_por_continente(resultado))
-
 
         except KeyError as e:
             print(f"Error: La columna {e} no existe en los datos. Revisa los encabezados del CSV.")

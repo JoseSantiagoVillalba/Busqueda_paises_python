@@ -2,7 +2,22 @@ import streamlit as st
 import pandas as pd
 import funciones_streamlit as fs
 
+
+
+#leer si existe un archivo paises.csv dentro de la carpeta 
+#en el caso de que exista se lee y no se pide la api
+#si no existe crearse el cvs mediante la api 
+#y luego se lee. 
+
+
 df = pd.read_csv("paises.csv")
+
+
+
+
+
+
+
 st.title("🌍 Buscador de Países")
 
 # Inicializar session_state para resultados
