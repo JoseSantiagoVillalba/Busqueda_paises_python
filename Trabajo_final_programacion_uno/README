@@ -1,0 +1,72 @@
+ALUMNOS = FACUNDO FLORES, JOSE SANTIAGO VILLALBA
+
+Buscador de Países
+
+Aplicación web interactiva creada con Streamlit y Pandas que permite 
+buscar, filtrar y analizar información de países según distintos criterios 
+(nombre, población, superficie y continente).
+
+
+Características principales
+Búsqueda por nombre: encuentra países escribiendo parte o todo su nombre.
+Filtrado por población: selecciona un rango de población (en millones).
+Filtrado por superficie: filtra países según su tamaño territorial.
+Filtrado por continente: muestra todos los países pertenecientes a un continente específico.
+Estadísticas rápidas: visualiza datos sobre población, superficie y cantidad de países por continente.
+
+
+Tecnologías utilizadas
+Python 3.10+
+Streamlit
+Pandas
+Docker
+
+
+Estructura del proyecto
+buscador_paises/
+├── main_streamlit.py                  
+├── funciones_streamlit.py     
+├── requirements.txt 
+├── dockerfile             
+└── README.md        
+
+
+Instalación y ejecución
+
+Cloná o descargá este repositorio:
+git clone https://github.com/tu_usuario/buscador_paises.git
+cd buscador_paises
+
+Instalá las dependencias:
+pip install streamlit pandas docker
+
+Ejecutá la aplicación:
+streamlit run main_streamlit.py
+
+
+Archivo funciones_streamlit.py
+
+Este módulo contiene todas las funciones que utiliza la aplicación, entre ellas:
+existe_archivo_paises() → Verifica si el CSV existe.
+crear_csv_paises() → Crea el CSV con datos iniciales.
+busqueda_paises(nombre, df) → Busca por nombre.
+busqueda_poblacion(min, max, df) → Filtra por rango de población.
+busqueda_superficie(min, max, df) → Filtra por superficie.
+busqueda_continente(cont, df) → Filtra por continente.
+estadisticas_poblacion(df) → Muestra estadísticas sobre población.
+estadisticas_superficie(df) → Muestra estadísticas sobre superficie.
+cantidad_paises_por_continente(df) → Cuenta países por continente.
+
+
+Ejemplo de uso
+
+Ejecutás la app con streamlit run main.py.
+Elegís la opción “Buscar país por nombre”.
+Escribís por ejemplo Arg → muestra Argentina.
+Presionás "Mostrar Estadisticas" para ver datos agregados.
+
+
+Autores
+Jose Santiago Villalba
+Facundo Flores
+Proyecto académico / personal desarrollado en Python.
